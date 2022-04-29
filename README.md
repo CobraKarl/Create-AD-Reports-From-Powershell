@@ -1,4 +1,4 @@
-# Create-AD-Reports-From-Powershell
+# Create-Reports-From-Powershell
 
 <h3> RapportADSendMail.ps1 </h3>
 
