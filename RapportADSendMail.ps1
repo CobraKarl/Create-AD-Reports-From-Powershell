@@ -22,11 +22,11 @@ else {
    
 }
 # Create the report and covert it to a html file ( Here you can change what for information you want to have in the report)
-$Report = Invoke-Command -ComputerName $ServerName { Get-ADComputer -Filter * -Properties * } -Credential $Cred | Select Name, Operatingsystem, LastLogondate@{Name='LastLogon';Expression={[DateTime]::FromFileTime($_.LastLogon)}}  | ConvertTo-Html
+$Report = Invoke-Command -ComputerName $ServerName { Get-ADComputer -Filter * -Properties * } -Credential $Cred | Select Name, Operatingsystem, @{Name='LastLogon';Expression={[DateTime]::FromFileTime($_.LastLogon)}}  | ConvertTo-Html
 
 # Get the credential
 $credential = Get-Credential
-$EmailFrom = Read-Host -Prompt "Enter E-mail Adress You Want To Send The Raport From (Must be a Office 365 e-post adress"
+$EmailFrom = Read-Host -Prompt "Enter E-mail Adress You Want To Send The Raport From (Must be a Office 365 e-post adress and same as you used in Credentials"
 $EmailTo = Read-Host -Prompt "Enter E-mail Adress You Want To Send The Raport To"
 
 ## Define the Send-MailMessage parameters
