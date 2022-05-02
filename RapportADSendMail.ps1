@@ -22,7 +22,7 @@ else {
    
 }
 # Create the report and covert it to a html file ( Here you can change what for information you want to have in the report)
-$Report = Invoke-Command -ComputerName $ServerName { Get-ADComputer -Filter * -Properties * } -Credential $Cred | Select Name, Operatingsystem, LastLogondate  | ConvertTo-Html
+$Report = Invoke-Command -ComputerName $ServerName { Get-ADComputer -Filter * -Properties * } -Credential $Cred | Select Name, Operatingsystem, LastLogondate@{Name='LastLogon';Expression={[DateTime]::FromFileTime($_.LastLogon)}}  | ConvertTo-Html
 
 # Get the credential
 $credential = Get-Credential
