@@ -8,3 +8,7 @@ This script creates a report on all computers that are connected to the domain o
 <h3> BasicRapport.ps1 </h3>
 
 This script creats a basic HTML computer report (you can change to the info that you want in your report)
+
+<h3> GetWindowsUpdate.ps1 </h3>
+
+This script creats a HTML file of all updates that a are available on the computer that you run it on. It also creats a folder were the html file is saved.
