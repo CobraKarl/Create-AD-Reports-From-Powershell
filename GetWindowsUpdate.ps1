@@ -86,5 +86,8 @@ $results | Select-Object $headerElements | ConvertTo-Html -Head $style | Set-Con
 # Remove the txt file
 Remove-Item -Path $OutputPath\$ReportName.txt 
 
+# Open the File
+Invoke-Item $OutputPath\$ReportName.html
+
 
 
