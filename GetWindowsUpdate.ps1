@@ -1,7 +1,19 @@
-#Install PSWindowUpdate
-Install-Module -Name PSWindowsUpdate -Force -WarningAction Ignore -Verbose
+#Check if PSUpdate is Installed
+
+If (-not(Get-InstalledModule PSWindowsUpdate -ErrorAction silentlycontinue)) {
+  Write-Host "Module does not exist, Installing"
+  Install-Module -Name PSWindowsUpdate -Force -WarningAction Ignore -Verbose
 Set-ExecutionPolicy RemoteSigned -Force
 Import-Module -Name PSWindowsUpdate
+}
+Else {
+  Write-Host "Module exists" }
+
+
+
+
+#Enter the name that you what the report to have
+$ReportName = Read-Host -Prompt "Enter A Name Of The Report" 
 
 # Check for source folder
 $OutputPath = "C:\ServerInfo\WInUpdate"
@@ -19,7 +31,7 @@ else {
 } 
 
 $Report = Get-WindowsUpdate | Format-Table ComputerName, Size, Title -Verbose
-$ReportName = Read-Host -Prompt "Enter A Name Of The Report" #Eneter the name that you what the report to have
+
 
 # Wait 10 Sec Before Continue
 Start-Sleep -Seconds 10 
