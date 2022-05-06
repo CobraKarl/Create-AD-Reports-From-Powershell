@@ -1,19 +1,33 @@
+# Added a countdown timer
+Function Start-Countdown 
+{ 
+    Param(
+        [Int32]$Seconds = 120,
+        [string]$Message = "Pausing a while, time...."
+    )
+    ForEach ($Count in (1..$Seconds))
+    {   Write-Progress -Id 1 -Activity $Message -Status "$($Seconds - $Count) seconds left" -PercentComplete (($Count / $Seconds) * 100)
+        Start-Sleep -Seconds 1
+    }
+    Write-Progress -Id 1 -Activity $Message -Status "Completed" -PercentComplete 100 -Completed
+}
+
 #Check if PSUpdate is Installed
 
-If (-not(Get-InstalledModule PSWindowsUpdate -ErrorAction silentlycontinue)) {
-  Write-Host "Module does not exist, Installing"
-  Install-Module -Name PSWindowsUpdate -Force -WarningAction Ignore -Verbose
-Set-ExecutionPolicy RemoteSigned -Force
-Import-Module -Name PSWindowsUpdate
-}
+If (-not(Get-InstalledModule PSWindowsUpdate -ErrorAction silentlycontinue )) {
+    Write-Host "Module does not exist, Installing"
+    Install-Module -Name PSWindowsUpdate -Force
+    Set-ExecutionPolicy RemoteSigned -Force
+    Import-Module -Name PSWindowsUpdate 
+    Start-Countdown -Seconds 120
+} 
 Else {
-  Write-Host "Module exists" }
-
-
-
-
+    Write-Host "Module exists" 
+}
+  
 #Enter the name that you what the report to have
-$ReportName = Read-Host -Prompt "Enter A Name Of The Report" 
+$ReportName = "winupdate" 
+$Report = Get-WindowsUpdate | Format-Table ComputerName, Size, Title
 
 # Check for source folder
 $OutputPath = "C:\ServerInfo\WInUpdate"
@@ -30,11 +44,9 @@ else {
     $Report | Out-File $OutputPath\$ReportName.txt
 } 
 
-$Report = Get-WindowsUpdate | Format-Table ComputerName, Size, Title -Verbose
-
 
 # Wait 10 Sec Before Continue
-Start-Sleep -Seconds 10 
+Start-Countdown -Seconds 10
 
 # Convert the fixed width left aligned file into a collection of psobjects
 $data = Get-Content $OutputPath\$ReportName.txt | Where-Object { ![string]::IsNullOrWhiteSpace($_) }
@@ -73,3 +85,6 @@ $results | Select-Object $headerElements | ConvertTo-Html -Head $style | Set-Con
 
 # Remove the txt file
 Remove-Item -Path $OutputPath\$ReportName.txt 
+
+
+
