@@ -27,7 +27,7 @@ Else {
   
 #Enter the name that you what the report to have
 $ReportName = "winupdate" 
-$Report = Get-WindowsUpdate | Format-Table ComputerName, Size, Title
+$Report = Get-WindowsUpdate | Format-Table ComputerName, KB, Title 
 
 # Check for source folder
 $OutputPath = "C:\ServerInfo\WInUpdate"
@@ -86,8 +86,6 @@ $results | Select-Object $headerElements | ConvertTo-Html -Head $style | Set-Con
 # Remove the txt file
 Remove-Item -Path $OutputPath\$ReportName.txt 
 
-# Open the File
+#Open the File
 Invoke-Item $OutputPath\$ReportName.html
-
-
 
