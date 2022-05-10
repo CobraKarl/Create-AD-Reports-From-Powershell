@@ -13,3 +13,7 @@ This script creats a basic HTML computer report (you can change to the info that
 
 First the script checks if PSWindowUpdate Module (that you need for runnin Get-WindowsUpdate) is installed, if it is not it will be installed otherwise the script continues then the script creats a HTML file of all updates that a are available on the computer that you run it on. It also creats a folder were the html file is saved.
 Added a countdown timer just for fun :)
+
+<h3> GetWindowsUpdateForAD.ps1 </h3>
+
+Create a avaiable windows updares report from AD servern with two choices, one: Only Servers in the domain, two: All Computers
