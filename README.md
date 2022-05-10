@@ -16,4 +16,4 @@ Added a countdown timer just for fun :)
 
 <h3> GetWindowsUpdateForAD.ps1 </h3>
 
-Create a avaiable windows updares report from AD servern with two choices, one: Only Servers in the domain, two: All Computers
+Create a "avaiable windows updates report" from AD servern with two choices, one: Only Servers in the domain, two: All Computers
